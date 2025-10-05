@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panic Button UI</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: "Segoe UI", Arial, sans-serif;
+      background:linear-gradient(135deg,#2c3e50, #3498db);
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      color: #fff;
+      padding: 30px 10px;
+    }
+
+    .container {
+      background:#333 (64, 8, 231, 0.08);
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.6);
+      width: 100%;
+      max-width: 450px;
+      backdrop-filter: blur(8px);
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h2 {
+      margin-bottom: 25px;
+      font-size: 32px; /* bada */
+      font-weight: bold;
+      text-align: left; /* thoda side pe */
+      text-shadow: 1px 1px 6px rgba(0,0,0,0.6);
+    }
+
+    .call-buttons {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 25px;
+      flex-wrap: wrap;
+    }
+
+    .call-buttons button {
+      flex: 1;
+      min-width: 110px;
+      padding: 12px 18px;
+      font-size: 16px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      color: white;
+      transition: transform 0.2s ease, box-shadow 0.3s ease;
+    }
+
+    .ambulance { background: #ff4b5c; }
+    .police { background: #28a745; }
+    .fire { background: #ff9f1c; }
+
+    .call-buttons button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.3);
+    }
+
+    .situation {
+      margin: 20px 0;
+      text-align: left;
+    }
+
+    .situation label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+    }
+
+    .situation select {
+      padding: 12px;
+      font-size: 16px;
+      border-radius: 10px;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      width: 100%;
+      background: #2c2e33;
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+
+    .panic {
+      display: flex;
+      justify-content: center;
+      margin-top: 30px;
+    }
+
+    .panic button {
+      width: 220px;
+      height: 220px;
+      font-size: 28px;
+      font-weight: bold;
+      border-radius: 50%;
+      border: none;
+      background: radial-gradient(circle at top left, #b30000, #660000); /* Deep red */
+      color: white;
+      cursor: pointer;
+      box-shadow: 0 0 30px rgba(255,0,0,0.9), 0 0 60px rgba(255,0,0,0.7);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .panic button:hover {
+      transform: scale(1.15);
+      box-shadow: 0 0 50px rgba(255,0,0,1), 0 0 80px rgba(255,0,0,0.9);
+    }
+
+    .log {
+      margin-top: 25px;
+      font-size: 14px;
+      color: #ddd;
+      text-align: left;
+    }
+    .buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+  }
+  .btn {
+    display: inline-block;
+    padding: 10px 18px;
+    background: #0072ff;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: bold;
+    transition: background 0.3s;
+  }
+  .btn:hover {
+    background: #005fcc;
+  }
+
+    @media (max-width: 600px) {
+      .call-buttons {
+        flex-direction: column;
+        gap: 15px;
+      }
+      .panic button {
+        width: 160px;
+        height: 160px;
+        font-size: 22px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div>
+    <div>
+  <div class="container">
+    <h2>🚨 Emergency Center 🚨</h2>
+
+    <div class="call-buttons">
+      <button class="ambulance" onclick="callNumber('108')">🚑 Ambulance</button>
+      <button class="police" onclick="callNumber('100')">👮 Police</button>
+      <button class="fire" onclick="callNumber('101')">🚒 Fire</button>
+    </div>
+
+    <div class="situation">
+      <label for="issue">Select Emergency Type:</label>
+      <select id="issue">
+        <option value="">-- Choose an option --</option>
+        <option value="Harassment">🙅 Harassment</option>
+        <option value="Theft/Robbery">👜 Theft / Robbery</option>
+        <option value="Health Emergency">🤒 Health Emergency</option>
+        <option value="Fire Accident">🔥 Fire Accident</option>
+        <option value="Suspicious Activity">👀 Suspicious Activity</option>
+        <option value="Other">⚠ Other</option>
+      </select>
+    </div>
+    <div class="buttons">
+    <a href="index.html" class="btn">← Back to Form</a>
+    
+  </div>
+    </div>
+
+    <div class="panic">
+      <button onclick="triggerPanic()">PANIC</button>
+    </div>
+
+    <div class="log" id="log">Log: Ready...</div>
+  </div>
+
+  <script>
+    function callNumber(num) {
+      window.location.href = "tel:" + num; // mobile dialer kholne ke liye
+    }
+
+    function triggerPanic() {
+      let issue = document.getElementById("issue").value;
+      let logBox = document.getElementById("log");
+
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+          let lat = position.coords.latitude;
+          let lon = position.coords.longitude;
+          let mapsLink = https//www.google.com/maps?q=${lat},${lon};
+          if(issue) {
+            alert("🚨 Panic Alert Raised for: " + issue + "\n📍 Location: " + mapsLink);
+          } else {
+            alert("🚨 Panic Alert Raised!\n📍 Location: " + mapsLink);
+          }
+          logBox.innerText = "Log: Panic alert sent with location.";
+        }, function() {
+          alert("⚠ Location access denied.");
+          logBox.innerText = "Log: Location access denied.";
+        });
+      } else {
+        alert("❌ Geolocation not supported in this browser.");
+        logBox.innerText = "Log: Geolocation not supported.";
+      }
+    }
+  </script>
+</body>
+</html>

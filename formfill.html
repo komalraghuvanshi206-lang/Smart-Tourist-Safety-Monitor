@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tourist Details Form</title>
+<style>
+  body{
+    margin:0;
+    font-family:Arial, sans-serif;
+    background:linear-gradient(135deg,#2c3e50, #4e82a4);
+    display:flex;
+    justify-content:center;
+    align-items:flex-start;
+    min-height:100vh;
+    padding:30px 0;
+  }
+  .form-container{
+    background:#292a3c;
+    padding:25px;
+    border-radius:12px;
+    box-shadow:0 8px 20px rgba(0,0,0,0.2);
+    width:90%;
+    max-width:650px;
+  }
+  h2{
+    text-align:center;
+    color:#3de4ea;
+    margin-bottom:20px;
+    text-shadow: 1px 1px 3px #0a0c0c;
+  }
+  label{
+    font-weight:bold;
+    margin-top:10px;
+    display:block;
+    color:#34babe;
+  }
+  input, select, textarea{
+    width:100%;
+    padding:10px;
+    margin-top:5px;
+    margin-bottom:12px;
+    border:1px solid #ccc;
+    border-radius:8px;
+    font-size:14px;
+  }
+  button{
+    width:100%;
+    padding:12px;
+    border:none;
+    border-radius:8px;
+    background:#0072ff;
+    color:#fff;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+  }
+  button:hover{
+    background:#005fcc;
+  }
+  .member-block{
+    border:1px solid #ddd;
+    padding:12px;
+    margin-bottom:12px;
+    border-radius:8px;
+    background:#f9f9f9;
+  }
+  .member-block h3{
+    margin:0 0 10px;
+    color:#0072ff;
+    font-size:16px;
+  }
+  .buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+  }
+  .btn {
+    display: inline-block;
+    padding: 10px 18px;
+    background: #0072ff;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: bold;
+    transition: background 0.3s;
+  }
+  .btn:hover {
+    background: #005fcc;
+  }
+</style>
+</head>
+<body>
+  <div>
+  <div>
+  <div class="form-container">
+    <h2>Tourist Details Form</h2>
+    <form id="touristForm">
+      <label>Name</label>
+      <input type="text" id="name" readonly>
+
+      <label>Age</label>
+      <input type="number" id="age" required>
+
+      <label>Address</label>
+      <textarea id="address" rows="2" required></textarea>
+
+      <label>Destination</label>
+      <input type="text" id="destination" required>
+
+      <label>Contact Number</label>
+      <input type="tel" id="contact" required>
+
+      <label>Aadhar Number</label>
+      <input type="text" id="aadhar" maxlength="12" required>
+
+      <label>Email Address</label>
+      <input type="email" id="email" required>
+
+      <label>Total Members</label>
+      <input type="number" id="members" min="1" required>
+
+      <!-- Dynamic members will appear here -->
+      <div id="membersContainer"></div>
+
+      <label>Gender</label>
+      <select id="gender" required>
+        <option value="">Select</option>
+        <option>Male</option>
+        <option>Female</option>
+        <option>Other</option>
+      </select>
+
+      <label>Nationality</label>
+      <input type="text" id="nationality" required>
+
+      <label>Country</label>
+      <select id="country" required>
+        <option value="">Select Country</option>
+      </select>
+
+      <label>State</label>
+      <select id="state" required>
+        <option value="">Select State</option>
+      </select>
+
+      <label>City</label>
+      <select id="city" required>
+        <option value="">Select City</option>
+      </select>
+
+      <label>Health and Safety Info</label>
+      <textarea id="health" rows="2"></textarea>
+
+      <button type="submit">Submit Details</button>
+    </form>
+  </div>
+  </div>
+    <div class="buttons">
+    <a href="index.html" class="btn">← Back to Form</a>
+    
+  </div>
+</div>
+
+
+<script>
+  // Load user name + email
+  const savedUser=JSON.parse(localStorage.getItem("touristUser"));
+  if(savedUser){
+    document.getElementById("name").value=savedUser.name;
+    document.getElementById("email").value=savedUser.email;
+  }
+
+  // Country-State-City Data
+  const locationData={
+    "India":{
+      "Madhya Pradesh":["Indore","Bhopal","Ujjain"],
+      "Maharashtra":["Mumbai","Pune","Nagpur"],
+      "Uttar Pradesh":["Lucknow","Varanasi","Agra"]
+    },
+    "USA":{
+      "California":["Los Angeles","San Francisco","San Diego"],
+      "Texas":["Houston","Dallas","Austin"],
+      "New York":["New York City","Buffalo","Rochester"]
+    },
+    "UK":{
+      "England":["London","Manchester","Liverpool"],
+      "Scotland":["Edinburgh","Glasgow","Aberdeen"],
+      "Wales":["Cardiff","Swansea","Newport"]
+    }
+  };
+
+  const countrySelect=document.getElementById("country");
+  const stateSelect=document.getElementById("state");
+  const citySelect=document.getElementById("city");
+
+  // Populate countries
+  Object.keys(locationData).forEach(country=>{
+    let opt=document.createElement("option");
+    opt.value=country;
+    opt.textContent=country;
+    countrySelect.appendChild(opt);
+  });
+
+  // On country change -> update states
+  countrySelect.addEventListener("change",function(){
+    stateSelect.innerHTML="<option value=''>Select State</option>";
+    citySelect.innerHTML="<option value=''>Select City</option>";
+    if(this.value && locationData[this.value]){
+      Object.keys(locationData[this.value]).forEach(state=>{
+        let opt=document.createElement("option");
+        opt.value=state;
+        opt.textContent=state;
+        stateSelect.appendChild(opt);
+      });
+    }
+  });
+
+  // On state change -> update cities
+  stateSelect.addEventListener("change",function(){
+    citySelect.innerHTML="<option value=''>Select City</option>";
+    let country=countrySelect.value;
+    if(country && this.value && locationData[country][this.value]){
+      locationData[country][this.value].forEach(city=>{
+        let opt=document.createElement("option");
+        opt.value=city;
+        opt.textContent=city;
+        citySelect.appendChild(opt);
+      });
+    }
+  });
+
+  // Dynamic member fields
+  document.getElementById("members").addEventListener("input",function(){
+    const count=parseInt(this.value);
+    const container=document.getElementById("membersContainer");
+    container.innerHTML="";
+    if(count>1){
+      for(let i=2;i<=count;i++){
+        const div=document.createElement("div");
+        div.className="member-block";
+        div.innerHTML=`
+          <h3>Member ${i}</h3>
+          <label>Name</label>
+          <input type="text" name="member${i}Name" required>
+          <label>Contact Number</label>
+          <input type="tel" name="member${i}Contact" required>
+        `;
+        container.appendChild(div);
+      }
+    }
+  });
+
+  // Submit form
+  document.getElementById("touristForm").addEventListener("submit",function(e){
+    e.preventDefault();
+    alert("Tourist details submitted successfully!");
+    window.location.href="index.html";
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tourist Recommendations</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #2c3e50, #3498db);
+      color: #fff;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 20px;
+      
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 2.2em;
+      text-shadow: 1px 1px 3px #000;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+    .card {
+      background: rgba(0, 0, 0, 0.6);
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+      transition: transform 0.3s, background 0.3s;
+    }
+    .card:hover {
+      transform: scale(1.05);
+      background: rgba(0, 0, 0, 0.8);
+    }
+    .card h2 {
+      font-size: 1.5em;
+      margin-bottom: 10px;
+    }
+    .card ul {
+      list-style: none;
+      padding: 0;
+    }
+    .card ul li {
+      margin: 8px 0;
+      font-size: 1.1em;
+    }
+    .skip-btn {
+      display: inline-block;
+      margin: 20px auto;
+      padding: 12px 25px;
+      background: #f39c12;
+      color: white;
+      border-radius: 8px;
+      font-size: 1em;
+      font-weight: bold;
+      text-decoration: none;
+      transition: 0.3s;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.3);
+    }
+    .skip-btn:hover {
+      background: #d35400;
+    }
+    .skip-container {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .city-select {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+    select {
+      padding: 10px;
+      border-radius: 8px;
+      font-size: 1em;
+    }
+    .buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+  }
+  .btn {
+    display: inline-block;
+    padding: 10px 18px;
+    background: #0072ff;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: bold;
+    transition: background 0.3s;
+  }
+  .btn:hover {
+    background: #005fcc;
+  }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="skip-container">
+      <a href="#" class="skip-btn">⏭ Skip</a>
+    </div>
+
+    <h1>✨ Tourist Recommendations ✨</h1>
+    
+
+    <!-- City Selection -->
+    <div class="city-select">
+      <label for="city">Select City/State: </label>
+      <select id="city" onchange="showAll()">
+        <option value="default">-- Choose --</option>
+        <option value="delhi">Delhi</option>
+        <option value="mumbai">Mumbai</option>
+        <option value="goa">Goa</option>
+      </select>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <h2>🏨 Hotels</h2>
+        <ul id="hotels"></ul>
+      </div>
+      <div class="card">
+        <h2>🍴 Restaurants</h2>
+        <ul id="restaurants"></ul>
+      </div>
+      <div class="card">
+        <h2>🚌 Travel Facilities</h2>
+        <ul id="travel"></ul>
+      </div>
+      <div class="card">
+        <h2>🧑‍🏫 Tour Guides</h2>
+        <ul id="guides"></ul>
+      </div>
+      <div class="card">
+        <h2>🚗 Vehicle Rentals</h2>
+        <ul id="rentals"></ul>
+      </div>
+      
+    </div>
+    <div class="buttons">
+    <a href="index.html" class="btn">← Back to Form</a>
+    
+  </div>
+  </div>
+
+  <script>
+    const data = {
+      delhi: {
+        hotels: ["Taj Palace", "The Oberoi", "ITC Maurya"],
+        restaurants: ["Karim’s", "Saravana Bhavan", "Bukhara"],
+        travel: ["Delhi Metro", "DTC Buses", "IRCTC Tourist Trains"],
+        guides: ["Heritage Walk Guides", "Red Fort Guides", "Qutub Minar Experts"],
+        rentals: ["Ola Rentals", "Uber Rentals", "Local Bike Rentals"]
+      },
+      mumbai: {
+        hotels: ["Taj Mahal Palace", "Trident", "ITC Grand Central"],
+        restaurants: ["Leopold Cafe", "Bademiya", "Global Fusion"],
+        travel: ["Mumbai Local", "BEST Buses", "Metro"],
+        guides: ["Gateway Guides", "Film City Tours", "Elephanta Island Guides"],
+        rentals: ["Zoomcar", "Drivezy", "Royal Enfield Rentals"]
+      },
+      goa: {
+        hotels: ["Leela Goa", "Taj Exotica", "Novotel Goa"],
+        restaurants: ["Fisherman’s Wharf", "Gunpowder", "Thalassa"],
+        travel: ["Goa Tourism Buses", "Ferry Rides", "Taxi Rentals"],
+        guides: ["Beach Guides", "Fort Aguada Guides", "Dudhsagar Trek Leaders"],
+        rentals: ["Scooty Rentals", "Car Rentals", "Bike on Rent"]
+      }
+    };
+
+    function showAll() {
+      const city = document.getElementById("city").value;
+      if (city === "default") {
+        document.getElementById("hotels").innerHTML = "";
+        document.getElementById("restaurants").innerHTML = "";
+        document.getElementById("travel").innerHTML = "";
+        document.getElementById("guides").innerHTML = "";
+        document.getElementById("rentals").innerHTML = "";
+        return;
+      }
+
+      const selected = data[city];
+      document.getElementById("hotels").innerHTML = selected.hotels.map(h => <li>• ${h}</li>).join("");
+      document.getElementById("restaurants").innerHTML = selected.restaurants.map(r => <li>• ${r}</li>).join("");
+      document.getElementById("travel").innerHTML = selected.travel.map(t => <li>• ${t}</li>).join("");
+      document.getElementById("guides").innerHTML = selected.guides.map(g => <li>• ${g}</li>).join("");
+      document.getElementById("rentals").innerHTML = selected.rentals.map(v => <li>• ${v}</li>).join("");
+    }
+  </script>
+</body>
+</html>

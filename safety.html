@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tourist Safety Guidelines</title>
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg,#2c3e50, #3498db);
+    color: #333;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  nav {
+    background: #0072ff;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #fff;
+    font-weight: bold;
+  }
+  nav a {
+    color: #fff;
+    text-decoration: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+    transition: background 0.3s;
+  }
+  nav a:hover {
+    background: rgba(255,255,255,0.2);
+  }
+
+  .container {
+    max-width: 900px;
+    margin: 40px auto;
+    background:#292a3c;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  }
+
+  h1, h2 {
+    text-align: center;
+    color: #0072ff;
+  }
+  h2 {
+    margin-top: 30px;
+  }
+
+  p {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+  li {
+    background: #f1f9ff;
+    margin: 10px 0;
+    padding: 15px 20px;
+    border-left: 5px solid #0072ff;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+  }
+  .icon {
+    font-weight: bold;
+    margin-right: 10px;
+    color: #0072ff;
+  }
+
+  .emergency {
+    background: #ffeded;
+    border-left-color: #ff4d4d;
+  }
+  .emergency .icon {
+    color: #ff4d4d;
+  }
+
+  /* Back and Next buttons */
+  .buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+  }
+  .btn {
+    display: inline-block;
+    padding: 10px 18px;
+    background: #0072ff;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: bold;
+    transition: background 0.3s;
+  }
+  .btn:hover {
+    background: #005fcc;
+  }
+
+  @media(max-width:600px){
+    .container{
+      padding: 20px;
+      margin: 20px;
+    }
+    .buttons {
+      flex-direction: column;
+      gap: 10px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- Main Container -->
+<div class="container">
+  <h1>Tourist Safety Guidelines</h1>
+  <p>Follow these safety tips to ensure a safe and enjoyable trip. Stay alert and prepared at all times.</p>
+
+  <h2>General Safety Tips</h2>
+  <ul>
+    <li><span class="icon">✔</span> Always carry a copy of your ID and emergency contacts.</li>
+    <li><span class="icon">✔</span> Avoid traveling alone at night in unfamiliar areas.</li>
+    <li><span class="icon">✔</span> Keep your valuables in a secure place.</li>
+    <li><span class="icon">✔</span> Respect local customs and rules.</li>
+    <li><span class="icon">✔</span> Stay hydrated and follow basic health precautions.</li>
+  </ul>
+
+  <h2>Local Guidelines</h2>
+  <ul>
+    <li><span class="icon">📌</span> Follow all traffic rules and pedestrian signals.</li>
+    <li><span class="icon">📌</span> Avoid restricted areas and private properties.</li>
+    <li><span class="icon">📌</span> Report any suspicious activity to authorities.</li>
+  </ul>
+
+  <h2>Emergency Contacts</h2>
+  <ul>
+    <li class="emergency"><span class="icon">🚨</span> Local Police: 100</li>
+    <li class="emergency"><span class="icon">🚨</span> Ambulance: 102</li>
+    <li class="emergency"><span class="icon">🚨</span> Fire Brigade: 101</li>
+    <li class="emergency"><span class="icon">🚨</span> Tourist Helpline: 1363</li>
+  </ul>
+
+  <!-- Back and Next Buttons -->
+  <div class="buttons">
+    <a href="index.html" class="btn">← Back to Form</a>
+    
+  </div>
+</div>
+
+</body>
+</html>
